@@ -11,7 +11,7 @@ filters: &filters
 
 matrix: &projects
   parameters:
-    projects: ['docker']
+    project: ['docker']
 
 workflows:
   main:

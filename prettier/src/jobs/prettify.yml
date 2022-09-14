@@ -8,8 +8,13 @@ parameters:
     type: string
     default: '.'
     description: 'Pattern for prettier'
+  plugins:
+    type: string
+    default: ''
+    description: 'List of prettier plugins separated with a comma (ex: @prettier/plugin-php)'
 steps:
   - checkout
-  - setup
+  - setup:
+      plugins: << parameters.plugins >>
   - prettify:
       pattern: << parameters.pattern >>

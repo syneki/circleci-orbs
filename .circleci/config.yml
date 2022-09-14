@@ -58,6 +58,6 @@ workflows:
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>
           requires: [<< matrix.name >>/publish]
-          config-path: << matrix.name >>/.circleci/test.yml
+          config-path: << matrix.name >>/.circleci/config.yml
           filters: *filters
           matrix: *projects

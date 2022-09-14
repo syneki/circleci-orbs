@@ -1,6 +1,15 @@
 description: >
   This command install Prettier
+
+parameters:
+  plugins:
+    type: string
+    default: ''
+    description: 'List of prettier plugins separated with a comma (ex: @prettier/plugin-php)'
+
 steps:
   - run:
       name: Install Prettier
       command: npm install --prefix=$HOME/.local --location=global prettier
+    environment:
+      PARAM_PLUGINS: << parameters.plugins >>

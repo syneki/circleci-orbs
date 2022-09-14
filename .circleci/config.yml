@@ -11,7 +11,7 @@ filters: &filters
 
 matrix: &projects
   parameters:
-    project: ['docker']
+    name: ['docker']
 
 workflows:
   main:
@@ -19,40 +19,38 @@ workflows:
       - orb-tools/lint:
           name: lint-<< matrix.name >>
           filters: *filters
-          matrix:
-            parameters:
-              name: ['docker']
+          matrix: *projects
           source-dir: << matrix.name >>/src/
       - orb-tools/pack:
-          name: pack-<< matrix.project >>
+          name: pack-<< matrix.name >>
           filters: *filters
           matrix: *projects
-          source-dir: << matrix.project >>/src/
-          output-dir: << matrix.project >>/dist/
+          source-dir: << matrix.name >>/src/
+          output-dir: << matrix.name >>/dist/
       - orb-tools/review:
-          name: review-<< matrix.project >>
+          name: review-<< matrix.name >>
           filters: *filters
           matrix: *projects
-          source-dir: << matrix.project >>/src/
+          source-dir: << matrix.name >>/src/
       - shellcheck/check:
-          name: shellcheck-<< matrix.project >>
+          name: shellcheck-<< matrix.name >>
           filters: *filters
           matrix: *projects
-          dir: << matrix.project >>
+          dir: << matrix.name >>
       - orb-tools/publish:
-          name: publish-<< matrix.project >>
-          orb-name: syneki/<< matrix.project >>
+          name: publish-<< matrix.name >>
+          orb-name: syneki/<< matrix.name >>
           vcs-type: << pipeline.project.type >>
           requires:
-            [lint-<< matrix.project >>, review-<< matrix.project >>, pack-<< matrix.project >>, shellcheck-<< matrix.project >>]
+            [lint-<< matrix.name >>, review-<< matrix.name >>, pack-<< matrix.name >>, shellcheck-<< matrix.name >>]
           context: orb-publishing
           filters: *filters
           matrix: *projects
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
-          orb-dir: << matrix.project >>/dist/
+          orb-dir: << matrix.name >>/dist/
           vcs-type: << pipeline.project.type >>
-          requires: [publish-<< matrix.project >>]
-          config-path: << matrix.project >>/.circleci/test.yml
+          requires: [publish-<< matrix.name >>]
+          config-path: << matrix.name >>/.circleci/test.yml
           filters: *filters
           matrix: *projects

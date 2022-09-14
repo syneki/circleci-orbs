@@ -1,14 +1,13 @@
 description: >
   Use prettier to Pretify a project
 # What will this job do?
-
 executor: default
 
 parameters:
   pattern:
     type: string
-    default: "."
-    description: "Pattern for prettier"
+    default: '.'
+    description: 'Pattern for prettier'
 steps:
   - checkout
   - setup

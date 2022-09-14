@@ -44,7 +44,12 @@ workflows:
           orb-dir: << matrix.name >>/dist/
           vcs-type: << pipeline.project.type >>
           requires:
-            [<< matrix.name >>/lint, << matrix.name >>/review, << matrix.name >>/pack, << matrix.name >>/shellcheck]
+            [
+              << matrix.name >>/lint,
+              << matrix.name >>/review,
+              << matrix.name >>/pack,
+              << matrix.name >>/shellcheck,
+            ]
           context: orb-publishing
           filters: *filters
           matrix: *projects

@@ -4,8 +4,8 @@ description: >
 parameters:
   pattern:
     type: string
-    default: "."
-    description: "Pattern for prettier"
+    default: '.'
+    description: 'Pattern for prettier'
 
 steps:
   - run:

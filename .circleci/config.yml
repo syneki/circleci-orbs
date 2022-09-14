@@ -41,6 +41,7 @@ workflows:
       - orb-tools/publish:
           name: publish-<< matrix.name >>
           orb-name: syneki/<< matrix.name >>
+          orb-dir: << matrix.name >>/dist/
           vcs-type: << pipeline.project.type >>
           requires:
             [lint-<< matrix.name >>, review-<< matrix.name >>, pack-<< matrix.name >>, shellcheck-<< matrix.name >>]
@@ -49,7 +50,6 @@ workflows:
           matrix: *projects
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
-          orb-dir: << matrix.name >>/dist/
           vcs-type: << pipeline.project.type >>
           requires: [publish-<< matrix.name >>]
           config-path: << matrix.name >>/.circleci/test.yml

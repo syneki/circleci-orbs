@@ -10,6 +10,7 @@ parameters:
     default: "."
     description: "Pattern for prettier"
 steps:
+  - checkout
   - setup
   - prettify:
       pattern: << parameters.pattern >>

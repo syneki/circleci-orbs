@@ -5,6 +5,10 @@ setup: true
 orbs:
   orb-tools: circleci/orb-tools@11.3.0
 
+filters: &filters
+  tags:
+    only: /.*/
+
 matrix: &projects
   parameters:
     projects: ['docker']

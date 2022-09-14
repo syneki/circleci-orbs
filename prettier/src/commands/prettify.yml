@@ -9,5 +9,5 @@ parameters:
 
 steps:
   - run:
-      name: Install Prettier
+      name: Run Prettier
       command: prettier -c << parameters.pattern >>

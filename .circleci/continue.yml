@@ -7,6 +7,7 @@ orbs:
 parameters:
   orb:
     type: string
+    default: ''
 
 filters: &filters
   tags:
@@ -14,22 +15,25 @@ filters: &filters
 
 workflows:
   lint-pack:
+    when:
+      not:
+        equal: [<<pipeline.parameters.orb>>, '']
     jobs:
       - orb-tools/lint:
           filters: *filters
-          source-dir: <<parameters.orb>>/src
+          source-dir: <<pipeline.parameters.orb>>/src
       - orb-tools/pack:
           filters: *filters
-          source-dir: <<parameters.orb>>/src
-          output-dir: <<parameters.orb>>/dist
+          source-dir: <<pipeline.parameters.orb>>/src
+          output-dir: <<pipeline.parameters.orb>>/dist
       - orb-tools/review:
           filters: *filters
-          source-dir: <<parameters.orb>>/src
+          source-dir: <<pipeline.parameters.orb>>/src
       - shellcheck/check:
           filters: *filters
-          dir: <<parameters.orb>>
+          dir: <<pipeline.parameters.orb>>
       - orb-tools/publish:
-          orb-dir: <<parameters.orb>>/dist
+          orb-dir: <<pipeline.parameters.orb>>/dist
           orb-name: syneki/docker
           vcs-type: << pipeline.project.type >>
           requires:

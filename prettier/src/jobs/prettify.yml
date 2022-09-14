@@ -11,7 +11,8 @@ parameters:
   plugins:
     type: string
     default: ''
-    description: 'List of prettier plugins separated with a comma (ex: @prettier/plugin-php)'
+    description: |
+      List of prettier plugins separated with a comma (ex: @prettier/plugin-php)
 steps:
   - checkout
   - setup:

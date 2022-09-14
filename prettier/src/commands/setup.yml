@@ -5,11 +5,12 @@ parameters:
   plugins:
     type: string
     default: ''
-    description: 'List of prettier plugins separated with a comma (ex: @prettier/plugin-php)'
+    description: |
+      List of prettier plugins separated with a comma (ex: @prettier/plugin-php)
 
 steps:
   - run:
       name: Install Prettier
       command: <<include(scripts/setup.sh)>>
-    environment:
-      PARAM_PLUGINS: << parameters.plugins >>
+      environment:
+        PARAM_PLUGINS: << parameters.plugins >>

@@ -5,5 +5,3 @@ steps:
   - run:
       name: Install php-cs-fixer
       command: <<include(scripts/setup.sh)>>
-    environment:
-      PARAM_PLUGINS: << parameters.plugins >>

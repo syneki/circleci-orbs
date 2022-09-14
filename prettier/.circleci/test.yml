@@ -11,7 +11,8 @@ workflows:
   prettier:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - test-job/prettify:
+      - prettier/prettify:
+          name: test-jobs/prettify
           pattern: .
           filters: *filters
       - orb-tools/pack:

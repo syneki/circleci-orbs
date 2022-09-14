@@ -1,0 +1,30 @@
+version: 2.1
+orbs:
+  php-cs-fixer: syneki/php-cs-fixer@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.1
+
+filters: &filters
+  tags:
+    only: /.*/
+
+workflows:
+  php-cs-fixer:
+    jobs:
+      - orb-tools/pack:
+          filters: *filters
+          source-dir: php-cs-fixer/src/
+          output-dir: php-cs-fixer/dist/
+      - orb-tools/publish:
+          orb-name: syneki/php-cs-fixer
+          orb-dir: php-cs-fixer/dist
+          vcs-type: << pipeline.project.type >>
+          pub-type: production
+          requires:
+            - orb-tools/pack
+            - test-jobs/prettify
+          context: orb-publishing
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/

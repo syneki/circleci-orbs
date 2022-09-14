@@ -1,0 +1,10 @@
+version: 2.1
+
+description: >
+  The PHP Coding Standards Fixer (PHP CS Fixer) tool fixes your code to follow standards; 
+  whether you want to follow PHP coding standards as defined in the PSR-1, PSR-2, etc., 
+  or other community driven ones like the Symfony one. 
+
+display:
+  home_url: 'https://github.com/syneki/circleci-orbs'
+  source_url: 'https://github.com/syneki/circleci-orbs'

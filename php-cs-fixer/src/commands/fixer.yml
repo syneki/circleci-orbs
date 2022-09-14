@@ -1,0 +1,20 @@
+description: >
+  This command run php-cs-fixer
+
+parameters:
+  config:
+    type: string
+    default: '.php-cs-fixer.dist.php'
+    description: 'Path to the php-cs-fixer config'
+  extra-args:
+    type: string
+    default: ''
+    description: 'Append extra arguments to the php-cs-fixer command'
+
+steps:
+  - run:
+      name: Run php-cs-fixer
+      command: <<include(scripts/run.sh)>>
+      environment:
+        PARAM_EXTRA_ARGS: << parameters.extra-args >>
+        PARAM_CONFIG: << parameters.config >>

@@ -12,7 +12,7 @@ filters: &filters
 
 matrix: &projects
   parameters:
-    name: ['prettier']
+    name: ['prettier', 'php-cs-fixer']
 
 workflows:
   main:

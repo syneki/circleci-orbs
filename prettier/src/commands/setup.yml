@@ -10,6 +10,6 @@ parameters:
 steps:
   - run:
       name: Install Prettier
-      command: npm install --prefix=$HOME/.local --location=global prettier
+      command: <<include(scripts/setup.sh)>>
     environment:
       PARAM_PLUGINS: << parameters.plugins >>

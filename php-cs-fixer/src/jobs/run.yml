@@ -1,0 +1,20 @@
+description: >
+  Run php-cs-fixer
+
+executor: default
+
+parameters:
+  config:
+    type: string
+    default: '.php-cs-fixer.dist.php'
+    description: 'Path to the php-cs-fixer config'
+  extra-args:
+    type: string
+    default: ''
+    description: 'Append extra arguments to the php-cs-fixer command'
+steps:
+  - checkout
+  - setup
+  - fixer:
+      config: << parameters.config >>
+      extra-args: << parameters.extra-args >>

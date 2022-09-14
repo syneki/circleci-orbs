@@ -3,4 +3,4 @@ description: >
 steps:
   - run:
       name: Install Prettier
-      command: npm install --location=global prettier
+      command: npm install --prefix=$HOME/.local --location=global prettier

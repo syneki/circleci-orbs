@@ -18,40 +18,40 @@ workflows:
   main:
     jobs:
       - orb-tools/lint:
-          name: lint-<< matrix.name >>
+          name: << matrix.name >>/lint
           filters: *filters
           matrix: *projects
           source-dir: << matrix.name >>/src/
       - orb-tools/pack:
-          name: pack-<< matrix.name >>
+          name: << matrix.name >>/pack
           filters: *filters
           matrix: *projects
           source-dir: << matrix.name >>/src/
           output-dir: << matrix.name >>/dist/
       - orb-tools/review:
-          name: review-<< matrix.name >>
+          name: << matrix.name >>/review
           filters: *filters
           matrix: *projects
           source-dir: << matrix.name >>/src/
       - shellcheck/check:
-          name: shellcheck-<< matrix.name >>
+          name: << matrix.name >>/shellcheck
           filters: *filters
           matrix: *projects
           dir: << matrix.name >>
       - orb-tools/publish:
-          name: publish-<< matrix.name >>
+          name: << matrix.name >>/publish
           orb-name: syneki/<< matrix.name >>
           orb-dir: << matrix.name >>/dist/
           vcs-type: << pipeline.project.type >>
           requires:
-            [lint-<< matrix.name >>, review-<< matrix.name >>, pack-<< matrix.name >>, shellcheck-<< matrix.name >>]
+            [<< matrix.name >>/lint, << matrix.name >>/review, << matrix.name >>/pack, << matrix.name >>/shellcheck]
           context: orb-publishing
           filters: *filters
           matrix: *projects
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>
-          requires: [publish-<< matrix.name >>]
+          requires: [<< matrix.name >>/publish]
           config-path: << matrix.name >>/.circleci/test.yml
           filters: *filters
           matrix: *projects

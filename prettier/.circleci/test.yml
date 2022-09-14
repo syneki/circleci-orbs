@@ -17,8 +17,11 @@ workflows:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
+          source-dir: prettier/src
+          output-dir: prettier/dist
       - orb-tools/publish:
-          orb-name: syneki/docker
+          orb-name: syneki/prettier
+          orb-dir: prettier/dist
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:

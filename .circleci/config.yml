@@ -11,5 +11,6 @@ workflows:
       - path-filtering/filter:
           base-revision: main
           config-path: docker/.circleci/config.yml
+          workspace_path: docker
           mapping: |
             docker/.* build true

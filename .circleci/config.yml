@@ -12,7 +12,7 @@ filters: &filters
 
 matrix: &projects
   parameters:
-    name: ['docker']
+    name: ['prettier']
 
 workflows:
   main:

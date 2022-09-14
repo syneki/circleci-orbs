@@ -1,0 +1,13 @@
+description: >
+  This command run Prettier
+
+parameters:
+  pattern:
+    type: string
+    default: "."
+    description: "Pattern for prettier"
+
+steps:
+  - run:
+      name: Install Prettier
+      command: prettier -c << parameters.pattern >>

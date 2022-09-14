@@ -1,0 +1,15 @@
+description: >
+  Use prettier to Pretify a project
+# What will this job do?
+
+executor: default
+
+parameters:
+  pattern:
+    type: string
+    default: "."
+    description: "Pattern for prettier"
+steps:
+  - setup
+  - prettify:
+      pattern: << parameters.pattern >>

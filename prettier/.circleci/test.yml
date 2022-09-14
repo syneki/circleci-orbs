@@ -16,9 +16,7 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - prettier/setup_prettier
-      - prettier/prettify:
-          path: '.'
+      - prettier/setup
 workflows:
   test-deploy:
     jobs:
@@ -28,7 +26,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: syneki/prettier
+          orb-name: syneki/docker
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:

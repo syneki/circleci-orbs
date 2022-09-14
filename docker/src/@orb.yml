@@ -1,8 +1,9 @@
 version: 2.1
 
 description: >
-  An util orb for creating powerfull Docker pipelines
+  This orb provide powerfull features to work with Docker.
+  Fetching tags, creating matrix, etc.
 
 display:
   home_url: "https://github.com/syneki/circleci-orbs"
-  source_url: "https://github.com/syneki/circleci-orbs/docker"
+  source_url: "https://github.com/syneki/circleci-orbs"

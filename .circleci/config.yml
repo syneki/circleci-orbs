@@ -21,7 +21,7 @@ workflows:
           filters: *filters
           matrix:
             parameters:
-              project: ['docker']
+              name: ['docker']
           source-dir: << matrix.project >>/src/
       - orb-tools/pack:
           name: pack-<< matrix.project >>

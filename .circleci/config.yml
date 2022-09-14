@@ -19,7 +19,9 @@ workflows:
       - orb-tools/lint:
           name: lint-<< matrix.project >>
           filters: *filters
-          matrix: *projects
+          matrix:
+            parameters:
+              project: ['docker']
           source-dir: << matrix.project >>/src/
       - orb-tools/pack:
           name: pack-<< matrix.project >>

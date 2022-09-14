@@ -1,0 +1,6 @@
+description: >
+  This command install Prettier
+steps:
+  - run:
+      name: Install Prettier
+      command: npm install --prefix=$HOME/.local --location=global prettier

@@ -1,35 +1,63 @@
 version: 2.1
+
 setup: true
+
 orbs:
-  orb-tools: circleci/orb-tools@11.1
+  orb-tools: circleci/orb-tools@11.3.0
   shellcheck: circleci/shellcheck@3.1
 
 filters: &filters
   tags:
     only: /.*/
 
+matrix: &projects
+  parameters:
+    name: ['prettier']
+
 workflows:
-  lint-pack:
+  main:
     jobs:
       - orb-tools/lint:
+          name: << matrix.name >>/lint
           filters: *filters
+          matrix: *projects
+          source-dir: << matrix.name >>/src/
       - orb-tools/pack:
+          name: << matrix.name >>/pack
           filters: *filters
+          matrix: *projects
+          source-dir: << matrix.name >>/src/
+          output-dir: << matrix.name >>/dist/
       - orb-tools/review:
+          name: << matrix.name >>/review
           filters: *filters
+          matrix: *projects
+          source-dir: << matrix.name >>/src/
       - shellcheck/check:
+          name: << matrix.name >>/shellcheck
           filters: *filters
+          matrix: *projects
+          dir: << matrix.name >>
       - orb-tools/publish:
-          orb-name: syneki/utils
+          name: << matrix.name >>/publish
+          orb-name: syneki/<< matrix.name >>
+          orb-dir: << matrix.name >>/dist/
           vcs-type: << pipeline.project.type >>
           requires:
-            [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
-          # Use a context to hold your publishing token.
+            [
+              << matrix.name >>/lint,
+              << matrix.name >>/review,
+              << matrix.name >>/pack,
+              << matrix.name >>/shellcheck,
+            ]
           context: orb-publishing
           filters: *filters
-      # Triggers the next workflow in the Orb Development Kit.
+          matrix: *projects
       - orb-tools/continue:
+          name: << matrix.name >>/continue
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>
-          requires: [orb-tools/publish]
+          requires: [<< matrix.name >>/publish]
+          config-path: << matrix.name >>/.circleci/test.yml
           filters: *filters
+          matrix: *projects

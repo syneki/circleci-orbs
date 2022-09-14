@@ -1,37 +1,32 @@
 version: 2.1
 orbs:
-  utils: syneki/utils@dev:<<pipeline.git.revision>>
+  prettier: syneki/prettier@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.1
 
 filters: &filters
   tags:
     only: /.*/
 
-jobs:
-  # Create a job to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
-  command-tests:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - checkout
-      # Run your orb's commands to validate them.
-      - utils/greet
 workflows:
-  test-deploy:
+  prettier:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - command-tests:
+      - prettier/prettify:
+          name: test-jobs/prettify
+          pattern: .
           filters: *filters
       - orb-tools/pack:
           filters: *filters
+          source-dir: prettier/src/
+          output-dir: prettier/dist/
       - orb-tools/publish:
-          orb-name: syneki/utils
+          orb-name: syneki/prettier
+          orb-dir: prettier/dist
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
             - orb-tools/pack
-            - command-tests
+            - test-jobs/prettify
           context: orb-publishing
           filters:
             branches:

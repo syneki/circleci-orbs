@@ -10,7 +10,6 @@ workflows:
     jobs:
       - path-filtering/filter:
           base-revision: main
-          config-path: docker/.circleci/config.yml
-          workspace_path: docker
+          config-path: .circleci/orb.yml
           mapping: |
-            docker/.* build true
+            docker/.* orb docker

@@ -5,5 +5,5 @@ description: >
   Check files that are different from Prettier formatting in your repository.
 
 display:
-  home_url: 'https://github.com/syneki/circleci-orbs'
+  home_url: 'https://syneki.com'
   source_url: 'https://github.com/syneki/circleci-orbs'

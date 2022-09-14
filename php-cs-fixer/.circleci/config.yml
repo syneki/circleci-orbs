@@ -21,7 +21,6 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - test-jobs/prettify
           context: orb-publishing
           filters:
             branches:

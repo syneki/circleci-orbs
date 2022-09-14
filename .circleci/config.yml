@@ -49,6 +49,7 @@ workflows:
           filters: *filters
           matrix: *projects
       - orb-tools/continue:
+          name: << matrix.name >>/continue
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>
           requires: [<< matrix.name >>/publish]

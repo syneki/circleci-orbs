@@ -5,11 +5,42 @@ setup: true
 orbs:
   path-filtering: circleci/path-filtering@0.1.3
 
+matrix: &projects
+  parameters:
+    projects: ['docker']
+
 workflows:
   main:
     jobs:
-      - path-filtering/filter:
-          base-revision: main
-          config-path: .circleci/continue.yml
-          mapping: |
-            docker/.* orb "docker"
+      - orb-tools/lint:
+          name: lint-<< matrix.project >>
+          filters: *filters
+          matrix: *projects
+      - orb-tools/pack:
+          name: pack-<< matrix.project >>
+          filters: *filters
+          matrix: *projects
+      - orb-tools/review:
+          name: review-<< matrix.project >>
+          filters: *filters
+          matrix: *projects
+      - shellcheck/check:
+          name: shellcheck-<< matrix.project >>
+          filters: *filters
+          matrix: *projects
+      - orb-tools/publish:
+          name: publish-<< matrix.project >>
+          orb-name: syneki/<< matrix.project >>
+          vcs-type: << pipeline.project.type >>
+          requires:
+            [lint-<< matrix.project >>, review-<< matrix.project >>, pack-<< matrix.project >>, shellcheck-<< matrix.project >>]
+          context: orb-publishing
+          filters: *filters
+          matrix: *projects
+      - orb-tools/continue:
+          pipeline-number: << pipeline.number >>
+          vcs-type: << pipeline.project.type >>
+          requires: [publish-<< matrix.project >>]
+          config-path: << matrix.project >>/.circleci/test.yml
+          filters: *filters
+          matrix: *projects

@@ -17,8 +17,8 @@ workflows:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
-          source-dir: prettier/src
-          output-dir: prettier/dist
+          source-dir: prettier/src/
+          output-dir: prettier/dist/
       - orb-tools/publish:
           orb-name: syneki/prettier
           orb-dir: prettier/dist

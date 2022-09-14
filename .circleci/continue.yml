@@ -21,19 +21,19 @@ workflows:
     jobs:
       - orb-tools/lint:
           filters: *filters
-          source-dir: <<pipeline.parameters.orb>>/src
+          source-dir: <<pipeline.parameters.orb>>/src/
       - orb-tools/pack:
           filters: *filters
-          source-dir: <<pipeline.parameters.orb>>/src
-          output-dir: <<pipeline.parameters.orb>>/dist
+          source-dir: <<pipeline.parameters.orb>>/src/
+          output-dir: <<pipeline.parameters.orb>>/dist/
       - orb-tools/review:
           filters: *filters
-          source-dir: <<pipeline.parameters.orb>>/src
+          source-dir: <<pipeline.parameters.orb>>/src/
       - shellcheck/check:
           filters: *filters
           dir: <<pipeline.parameters.orb>>
       - orb-tools/publish:
-          orb-dir: <<pipeline.parameters.orb>>/dist
+          orb-dir: <<pipeline.parameters.orb>>/dist/
           orb-name: syneki/docker
           vcs-type: << pipeline.project.type >>
           requires:
